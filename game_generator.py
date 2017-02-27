@@ -75,14 +75,14 @@ def game_data(iterations, type):
         return temp
     if type==2:
         for x in range(0,iterations):
-            single = instance.no_NE_in_dominant_strategies()
+            single = instance.no_strictly_dominant_strategies()
             temp = np.concatenate((temp, single))
         return temp
     if type == 3:
         for x in range(0, iterations):
-            single = instance.no_constraints()
+            single = instance.no_NE_in_dominant_strategies()
             temp = np.concatenate((temp, single))
         return temp
 
-x = game_data(1,3)
+x = game_data(100,3)
 print(x)
