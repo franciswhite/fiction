@@ -21,7 +21,7 @@
 
 \subsection*{Introduction}
 We have generated a large number of two-player, zero-sum games and simulated fictitious play on them to analyse their rate of convergence. 
-In this report we briefly discusses the method used to generate different types of games and then show the results of our analysis concerning the rate of convergence.
+In this report we briefly discusses the method used to generate different types of games and then show the results of our analysis concerning the rate of convergence. Specifically, we have found a systematic relationship between a game having pure Nash Equilibria, its rate of convergence and the number of iterations the fictitious play algorithm requires to terminate (given a certain convergence treshold).
 \subsection*{Generating Games}
 We used three types of two-player, zero-sum games for our analysis. The first type was constructed by randomly picking four integers  $\alpha,\beta,\gamma,\delta$ in the interval $[-1000,1000]$ to represent the row players' payoffs (ordered clockwise, starting in the top-left of the normal form). Since we only consider zero-sum games, we simultaneously determined the column player's utilities as $-\alpha,-\beta,-\gamma,-\delta$.
 \begin{table}[h]
@@ -42,6 +42,10 @@ Since the actual mixed Nash Equilibria of the games were unknown to us, we used 
 \begin{equation*}
 p\approx\frac{\log{|\frac{s_{n+1}-s_{n}}{s_{n}-s_{n-1}}|}}{\log{|\frac{s_{n}-s_{n-1}}{s_{n-1}-s_{n-2}}|}}
 \end{equation*}
+
+\subsection*{Findings}
+We find that games have a rate of convergence that is infinite \textbf{iff} they have a pure NE \textbf{iff} the fictitious play algorithm needs either 2 or $\tfrac{1}{\epsilon*10}$ iterations to terminate.\\
+A game has no Nash equilibrium in pure strategies \textbf{iff} the rate of convergence equals $1$. In the absence of pure NE, the number of iterations seems to be upper bounded by roughly 5000 (for $\epsilon=0.0001$).
 
 \textbf{References}\\
 \url{https://en.wikipedia.org/wiki/Rate_of_convergence}
