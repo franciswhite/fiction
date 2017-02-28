@@ -21,5 +21,17 @@
 \maketitle
 
 \subsection*{Generating Games}
-We used three types of two-player, zero-sum games for our analysis. The first type was constructed by randomly picking four integers in the interval $[-1000,1000]$ to represent the row players' payoffs. The column player was simultaneously determined as the 
+We used three types of two-player, zero-sum games for our analysis. The first type was constructed by randomly picking four integers  $\alpha,\beta,\gamma,\delta$ in the interval $[-1000,1000]$ to represent the row players' payoffs (ordered clockwise, starting in the top-left of the normal form). Since we only consider zero-sum games, we simultaneously determined the column player's utilities as $-\alpha,-\beta,-\gamma,-\delta$.
+\begin{table}[h]
+\centering
+\caption{}
+\begin{tabular}{|l|l|l|}
+\hline
+  & L                & R                \\ \hline
+T & $\alpha,-\alpha$ & $\beta,-\beta$   \\ \hline
+B & $\gamma,-\gamma$ & $\delta,-\delta$ \\ \hline
+\end{tabular}
+\end{table}
 \end{document}
+The second type of games satisfies the constraint that there are no strictly dominant strategies for either player. We generated this type by randomly picking four integers $\alpha,\beta,\gamma,\delta\in [-1000,1000]$ again and discarding all game where the constraint is violated. The third type of games is generated the same way, but this time under the constraint that there be no Nash Equilibria in dominant strategies. That is, maximally one player was allowed to have a dominant pure strategy.\\
+We worked with these three types of games to assess if and how they would differ in terms of rate of convergence.
