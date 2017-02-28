@@ -64,6 +64,20 @@ class Generator(object):
         game = np.array([tl, tr, bl, br], float)  # Create game-vector
         return game
 
+    def exactly_one_dominant_strategy(self):
+    '''Generates game with exactly one dominant strategy.'''
+        tl = 0  # Initializing with game that violates constraint
+        tr = 0
+        bl = 0
+        br = 0
+        while not((tl > tr and bl > br) or (tl > bl and tr > br) or (tl < bl and tr < br) or (tl < tr and bl < br)):
+            tl = random.randint(-1000, 1000)  # Row player's top left entry
+            tr = random.randint(-1000, 1000)
+            bl = random.randint(-1000, 1000)
+            br = random.randint(-1000, 1000)
+        game = np.array([tl, tr, bl, br], float)  # Create game-vector
+        return game
+
 instance_of_generator = Generator()
 some_game = instance_of_generator.no_constraints()
 
