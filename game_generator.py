@@ -50,6 +50,20 @@ class Generator(object):
         game = np.array([tl,tr,bl,br], float)   #Create game-vector
         return game
 
+    def NE_in_dominant_strategies(self):
+        '''Generates game with NE in strictly dominant strategies.'''
+        tl = 0 #Initializing with game that violates constraint
+        tr = 0
+        bl = 0
+        br = 0
+        while not((tl > tr and bl > br) and (tl > bl and tr > br)) and not((tl > tr and bl > br) and (tl < bl and tr < br)) and not((tl < tr and bl < br) and (tl > bl and tr > br)) and not((tl < tr and bl < br) and (tl < bl and tr < br)):
+            tl = random.randint(-1000,1000) #Row player's top left entry
+            tr = random.randint(-1000,1000)
+            bl = random.randint(-1000,1000)
+            br = random.randint(-1000,1000)
+        game = np.array([tl, tr, bl, br], float)  # Create game-vector
+        return game
+
 instance_of_generator = Generator()
 some_game = instance_of_generator.no_constraints()
 
@@ -64,7 +78,7 @@ print(yet_another)
 def game_data(iterations, type):
     '''Generates an array where games come in blocks of 4 entries each.
     :param iterations. amount of games generated.
-    :param type. class of games generated (1=no_constraints, 2=no_strictly_dominant_strategy, 3=no_NE_in_dominant_strategies).
+    :param type. class of games generated (1=no_constraints, 2=no_strictly_dominant_strategy, 3=no_NE_in_dominant_strategies, 4=NE_in_dominant_strategies(self)).
     :returns vector of length 4*iterations.'''
     instance = Generator()
     temp = np.array([])
@@ -83,7 +97,12 @@ def game_data(iterations, type):
             single = instance.no_NE_in_dominant_strategies()
             temp = np.concatenate((temp, single))
         return temp
+    if type == 4:
+        for x in range(0, iterations):
+            single = instance.NE_in_dominant_strategies()
+            temp = np.concatenate((temp, single))
+        return temp
 
-x = game_data(1,2) #Debug
+x = game_data(1,4) #Debug
 print(x) #Debug
 print(len(x)) #Debug
