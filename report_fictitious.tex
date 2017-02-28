@@ -38,7 +38,7 @@ B & $\gamma,-\gamma$ & $\delta,-\delta$ \\ \hline
 The second type of games satisfies the constraint that there are no strictly dominant strategies for either player. We generated this type by randomly picking four integers $\alpha,\beta,\gamma,\delta \in [-1000,1000]$ again and discarding all game where the constraint is violated. The third type of games is generated the same way, but this time under the constraint that there be no Nash Equilibria in dominant strategies. That is, maximally one player was allowed to have a dominant pure strategy.\\
 We worked with these three types of games to assess if and how they would differ in terms of rate of convergence.
 \subsection*{Analysis}
-Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula from Wikipedia to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles.
+Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula from Wikipedia to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles during fictitious play.
 \begin{equation*}
 p\approx\frac{\log{|\frac{s_{n+1}-s_{n}}{s_{n}-s_{n-1}}|}}{\log{|\frac{s_{n}-s_{n-1}}{s_{n-1}-s_{n-2}}|}}
 \end{equation*}
