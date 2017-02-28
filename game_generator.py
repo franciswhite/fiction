@@ -28,7 +28,7 @@ class Generator(object):
         tr = 1
         bl = 0
         br = 0
-        while (tl > bl and tr > br) or (tl < bl and tr < br) or (tr > tl and bl > br) or (tr < tl and bl < br): #Condition that there is strictly dominant strategy
+        while (tl > bl and tr > br) or (tl < bl and tr < br) or (tr > tl and br > bl) or (tr < tl and br < bl): #Condition that there is strictly dominant strategy
             tl = random.randint(-1000,1000)
             tr = random.randint(-1000,1000)
             bl = random.randint(-1000,1000)
@@ -84,5 +84,6 @@ def game_data(iterations, type):
             temp = np.concatenate((temp, single))
         return temp
 
-x = game_data(100,3)
-print(x)
+x = game_data(1,2) #Debug
+print(x) #Debug
+print(len(x)) #Debug
