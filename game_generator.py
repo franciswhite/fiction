@@ -65,12 +65,16 @@ class Generator(object):
         return game
 
     def exactly_one_dominant_strategy(self):
-    '''Generates game with exactly one dominant strategy.'''
+        '''Generates game with exactly one dominant strategy.'''
         tl = 0  # Initializing with game that violates constraint
         tr = 0
         bl = 0
         br = 0
-        while not((tl > tr and bl > br) or (tl > bl and tr > br) or (tl < bl and tr < br) or (tl < tr and bl < br)):
+        while not((tl > tr and bl > br and not((tl > bl and tr > br) or (tl < bl and tr < br)))
+                   or (tl < tr and bl < br and not((tl > bl and tr > br) or (tl < bl and tr < br)))
+                    or (tl < bl and tr < br and not((tl > tr and bl > br) or (tl < tr and bl < br)))
+                       or (tl > bl and tr > br and not((tl > tr and bl > br) or (tl < tr and bl < br)))
+                  ):
             tl = random.randint(-1000, 1000)  # Row player's top left entry
             tr = random.randint(-1000, 1000)
             bl = random.randint(-1000, 1000)
@@ -92,7 +96,7 @@ print(yet_another)
 def game_data(iterations, type):
     '''Generates an array where games come in blocks of 4 entries each.
     :param iterations. amount of games generated.
-    :param type. class of games generated (1=no_constraints, 2=no_strictly_dominant_strategy, 3=no_NE_in_dominant_strategies, 4=NE_in_dominant_strategies(self)).
+    :param type. class of games generated (1=no_constraints, 2=no_strictly_dominant_strategy, 3=no_NE_in_dominant_strategies, 4=NE_in_dominant_strategies, 5=exactly_one_dominant_strategy).
     :returns vector of length 4*iterations.'''
     instance = Generator()
     temp = np.array([])
@@ -116,7 +120,14 @@ def game_data(iterations, type):
             single = instance.NE_in_dominant_strategies()
             temp = np.concatenate((temp, single))
         return temp
+    if type == 5:
+        for x in range(0, iterations):
+            single = instance.exactly_one_dominant_strategy()
+            temp = np.concatenate((temp, single))
+        return temp
 
-x = game_data(1,4) #Debug
+
+
+x = game_data(1,5) #Debug
 print(x) #Debug
 print(len(x)) #Debug
