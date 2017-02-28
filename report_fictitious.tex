@@ -20,12 +20,8 @@
 \maketitle
 
 \subsection*{Introduction}
-For this report we have generated a large number of two-player, zero-sum games and simulated fictitious play on them to analyse their rate of convergence. 
-We briefly discusses the method used to generate the games and then show the results of our analysis concerning the rate of convergence for different types of games.
-Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula from Wikipedia to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles.
-\begin{equation*}
-p\approx\frac{\log{|\frac{s_{n+1}-s_{n}}{s_{n}-s_{n-1}}|}}{\log{|\frac{s_{n}-s_{n-1}}{s_{n-1}-s_{n-2}}|}}
-\end{equation*}
+We have generated a large number of two-player, zero-sum games and simulated fictitious play on them to analyse their rate of convergence. 
+In this report we briefly discusses the method used to generate different types of games and then show the results of our analysis concerning the rate of convergence.
 \subsection*{Generating Games}
 We used three types of two-player, zero-sum games for our analysis. The first type was constructed by randomly picking four integers  $\alpha,\beta,\gamma,\delta$ in the interval $[-1000,1000]$ to represent the row players' payoffs (ordered clockwise, starting in the top-left of the normal form). Since we only consider zero-sum games, we simultaneously determined the column player's utilities as $-\alpha,-\beta,-\gamma,-\delta$.
 \begin{table}[h]
@@ -38,11 +34,16 @@ T & $\alpha,-\alpha$ & $\beta,-\beta$   \\ \hline
 B & $\gamma,-\gamma$ & $\delta,-\delta$ \\ \hline
 \end{tabular}
 \end{table}
-\end{document}
-The second type of games satisfies the constraint that there are no strictly dominant strategies for either player. We generated this type by randomly picking four integers $\alpha,\beta,\gamma,\delta\in [-1000,1000]$ again and discarding all game where the constraint is violated. The third type of games is generated the same way, but this time under the constraint that there be no Nash Equilibria in dominant strategies. That is, maximally one player was allowed to have a dominant pure strategy.\\
+
+The second type of games satisfies the constraint that there are no strictly dominant strategies for either player. We generated this type by randomly picking four integers $\alpha,\beta,\gamma,\delta \in [-1000,1000]$ again and discarding all game where the constraint is violated. The third type of games is generated the same way, but this time under the constraint that there be no Nash Equilibria in dominant strategies. That is, maximally one player was allowed to have a dominant pure strategy.\\
 We worked with these three types of games to assess if and how they would differ in terms of rate of convergence.
-
 \subsection*{Analysis}
+Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula from Wikipedia to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles.
+\begin{equation*}
+p\approx\frac{\log{|\frac{s_{n+1}-s_{n}}{s_{n}-s_{n-1}}|}}{\log{|\frac{s_{n}-s_{n-1}}{s_{n-1}-s_{n-2}}|}}
+\end{equation*}
 
-\textit{References}\\
-https://en.wikipedia.org/wiki/Rate_of_convergence
+\textbf{References}\\
+\url{https://en.wikipedia.org/wiki/Rate_of_convergence}
+
+\end{document}
