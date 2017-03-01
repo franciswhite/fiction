@@ -15,15 +15,17 @@
 \usepackage{comment}
 \usepackage[margin=1in]{geometry}
 \usepackage[normalem]{ulem}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 \date{}
 \begin{document}
 \maketitle
 
 \subsection*{Introduction}
-We have generated a large number of two-player, zero-sum games and simulated fictitious play on them to analyse their rate of convergence. 
-In this report we briefly discusses the method used to generate different types of games and then show the results of our analysis concerning the rate of convergence. Specifically, we have found a systematic relationship between a game having pure Nash Equilibria, its rate of convergence and the number of iterations the fictitious play algorithm requires to terminate (given a certain convergence treshold).
+We have generated a large number of two-player, zero-sum games and simulated fictitious play on them in order to analyse the rate of convergence. 
+In the first part of this report we briefly discuss the method that we used to generate different types of games. In the second part we then show our findings related to the rate of convergence of fictitious play. We have found a systematic relationship between a game having pure Nash Equilibria, its rate of convergence and the number of iterations the fictitious play algorithm requires to terminate when given a certain convergence treshold.
 \subsection*{Generating Games}
-We used three types of two-player, zero-sum games for our analysis. The first type was constructed by randomly picking four integers  $\alpha,\beta,\gamma,\delta$ in the interval $[-1000,1000]$ to represent the row players' payoffs (ordered clockwise, starting in the top-left of the normal form). Since we only consider zero-sum games, we simultaneously determined the column player's utilities as $-\alpha,-\beta,-\gamma,-\delta$.
+We generated the games by randomly picking four integers  $\alpha,\beta,\gamma,\delta$ in the interval $[-1000,1000]$ to represent the row players' payoffs (ordered clockwise, starting in the top-left of the normal form). Since we only consider zero-sum games, we simultaneously determined the column player's utilities as $-\alpha,-\beta,-\gamma,-\delta$.
 \begin{table}[h]
 \centering
 \caption{}
@@ -34,20 +36,28 @@ T & $\alpha,-\alpha$ & $\beta,-\beta$   \\ \hline
 B & $\gamma,-\gamma$ & $\delta,-\delta$ \\ \hline
 \end{tabular}
 \end{table}
-
-The second type of games satisfies the constraint that there are no strictly dominant strategies for either player. We generated this type by randomly picking four integers $\alpha,\beta,\gamma,\delta \in [-1000,1000]$ again and discarding all game where the constraint is violated. The third type of games is generated the same way, but this time under the constraint that there be no Nash Equilibria in dominant strategies. That is, maximally one player was allowed to have a dominant pure strategy.\\
-We worked with these three types of games to assess if and how they would differ in terms of rate of convergence.
-\subsection*{Analysis}
-Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula from Wikipedia to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles during fictitious play.
+Note that this method will generate all types of games: some where there are NE in pure strategies, some where only one player has a dominant strategy etc.
+\subsection*{Technicalities and Analysis}
+Since the actual mixed Nash Equilibria of the games were unknown to us, we used the following formula \footnote{\url{https://en.wikipedia.org/wiki/Rate_of_convergence}
+} to approximate the rate of convergence. $\boldsymbol{s}_l$ denotes the sequence of empirical-mixed-strategy profiles during fictitious play.
 \begin{equation*}
 p\approx\frac{\log{|\frac{s_{n+1}-s_{n}}{s_{n}-s_{n-1}}|}}{\log{|\frac{s_{n}-s_{n-1}}{s_{n-1}-s_{n-2}}|}}
 \end{equation*}
-
+Further, we had to decide on a treshold when to stop the fictitious play algorithm. We decided to terminate it once both players' beliefs change less than $\epsilon$ from one iteration to the next, that is, $|s_n-s_{n-1}|<\epsilon=0.0001$. 
 \subsection*{Findings}
-We find that games have a rate of convergence that is infinite \textbf{iff} they have a pure NE \textbf{iff} the fictitious play algorithm needs either 2 or $\tfrac{1}{\epsilon*10}$ iterations to terminate.\\
-A game has no Nash equilibrium in pure strategies \textbf{iff} the rate of convergence equals $1$. In the absence of pure NE, the number of iterations seems to be upper bounded by roughly 5000 (for $\epsilon=0.0001$).
+Based on our data, we find that games which have an NE in pure strategies have a rate of convergence that is infinite and the fictitious play algorithm needs either 2 or $\tfrac{1}{\epsilon*10}$ iterations to terminate. For games without NE in pure strategies, the rate of convergence equals $1$ and the number of iterations seems to be upper-bounded by around 5000m (given $\epsilon=0.0001$) \footnote{Another group obtained the same result with respect to this upper bound, so it is probably not due to our particular algorithms. There might be a robust relationship between convergence treshold and this bound.}.\\
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Rate of Convergence & \#iterations     & Convergence to pure NE \\ \hline
+$\infty$            & $2$ or $100$         & \checkmark      \\ \hline
+$1$                   & $< \approx 5000$ & $\times$        \\ \hline
+\end{tabular}
+\end{table}
 
-\textbf{References}\\
-\url{https://en.wikipedia.org/wiki/Rate_of_convergence}
+We hypothesize that the the reason for seeing exactly these number of iterations when a NE is present are three factors: The way we generated our games, how our fictitious play algorithm works and the specific value we chose for $\epsilon$.\\
+Our fictitious play algorithm always initializes with the action profile $(T,L)$. This is also the first iteration. If $(T,L)$ happens to be a NE, then the players' best response will be $(T,L)$ again, the believed mixed strategy of the respective opponent doesn't change more than $\epsilon$ and the algorithm terminates in the second step. Since our game generator works entirely randomly, it will sometimes create games where $(T,L)$ happens to be a pure NE. These are then the 2 iteration cases.\\
+Explaining the 100 iterations cases is a little more involved. Consider the following example game and the sequence of beliefs the players have when choosing an
 
 \end{document}
